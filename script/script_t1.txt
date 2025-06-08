@@ -1,0 +1,34 @@
+CREATE DATABASE BD1_Valencia;
+USE BD1_Valencia;
+
+CREATE TABLE categoria (
+  id_cate INT PRIMARY KEY NOT NULL,
+  descripcion VARCHAR(50),
+  frecuencia_compra VARCHAR(20)
+);
+
+INSERT INTO categoria (id_cate, descripcion, frecuencia_compra) VALUES
+  (1, 'Medicamentos', 'Alta'),
+  (2, 'Vitaminas', 'Media'),
+  (3, 'Cosméticos', 'Baja');
+  
+CREATE TABLE productos (
+  id_prod INT PRIMARY KEY NOT NULL,
+  nom_prod VARCHAR(50),
+  id_cate INT,
+  stock_actual INT,
+  FOREIGN KEY (id_cate) REFERENCES categoria(id_cate)
+);
+
+INSERT INTO productos (id_prod, nom_prod, id_cate, stock_actual) VALUES
+  (101, 'Paracetamol', 1, 100),
+  (102, 'Vitamina C', 2, 50),
+  (103, 'Crema Facial', 3, 30);
+  
+CREATE TABLE inventario (
+  nro_inventario INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  fecha DATE DEFAULT (CURRENT_DATE),
+  id_prod INT,
+  costo_ingreso DECIMAL(10,2),
+  FOREIGN KEY (id_prod) REFERENCES productos(id_prod)
+);
